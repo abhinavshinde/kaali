@@ -6,7 +6,6 @@ from typing import Optional
 import tg_bot.modules.sql.notes_sql as sql
 from tg_bot import LOGGER, dispatcher, SUDO_USERS
 from tg_bot.modules.disable import DisableAbleCommandHandler
-from tg_bot.modules.helper_funcs.handlers import MessageHandlerChecker
 from tg_bot.modules.helper_funcs.chat_status import user_admin, connection_status
 from tg_bot.modules.helper_funcs.misc import (build_keyboard,
                                                     revert_buttons)
