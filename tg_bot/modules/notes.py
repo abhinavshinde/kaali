@@ -622,27 +622,24 @@ This will retrieve the note and send it without formatting it; getting you the r
 
 __mod_name__ = "Notes"
 
-GET_HANDLER = CommandHandler("get", cmd_get, pass_args=True)
-HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get)
-
-SAVE_HANDLER = CommandHandler("save", save)
-DELETE_HANDLER = CommandHandler("clear", clear, pass_args=True)
+GET_HANDLER = CommandHandler("get", cmd_get, run_async=True)
+HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get, run_async=True)
+SLASH_GET_HANDLER = MessageHandler(Filters.regex(r"^/\d+$"), slash_get, run_async=True)
+SAVE_HANDLER = CommandHandler("save", save, run_async=True)
+DELETE_HANDLER = CommandHandler("clear", clear, run_async=True)
 
 LIST_HANDLER = DisableAbleCommandHandler(
-    ["notes", "saved"], list_notes, admin_ok=True
-)
-CLEARALLNOTES_HANDLER = CommandHandler(
-    "rmallnotes", clear_notes, filters=Filters.group
+    ["notes", "saved"], list_notes, admin_ok=True, run_async=True
 )
 
-RMBTN_HANDLER = CallbackQueryHandler(
-    rmbutton, pattern=r"rmnotes_", run_async=True
-)
+CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall)
+CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*")
 
 dispatcher.add_handler(GET_HANDLER)
 dispatcher.add_handler(SAVE_HANDLER)
 dispatcher.add_handler(LIST_HANDLER)
 dispatcher.add_handler(DELETE_HANDLER)
 dispatcher.add_handler(HASH_GET_HANDLER)
-dispatcher.add_handler(CLEARALLNOTES_HANDLER)
-dispatcher.add_handler(RMBTN_HANDLER)
+dispatcher.add_handler(SLASH_GET_HANDLER)
+dispatcher.add_handler(CLEARALL)
+dispatcher.add_handler(CLEARALL_BTN)
