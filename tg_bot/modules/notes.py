@@ -19,21 +19,21 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-import perry.modules.sql.notes_sql as sql
-from perry import dispatcher, MESSAGE_DUMP, LOGGER
-from perry.modules.disable import DisableAbleCommandHandler
-from perry.modules.helper_funcs.chat_status import (
+import tg_bot.modules.sql.notes_sql as sql
+from tg_bot import dispatcher, MESSAGE_DUMP, LOGGER
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import (
     user_admin,
     user_admin_no_reply,
 )
-from perry.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from perry.modules.helper_funcs.msg_types import get_note_type
-from perry.modules.helper_funcs.string_handling import (
+from tg_bot.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from tg_bot.modules.helper_funcs.msg_types import get_note_type
+from tg_bot.modules.helper_funcs.string_handling import (
     escape_invalid_curly_brackets,
     markdown_to_html,
 )
-from perry.modules.helper_funcs.alternate import typing_action
-from perry.modules.connection import connected
+from tg_bot.modules.helper_funcs.alternate import typing_action
+from tg_bot.modules.connection import connected
 
 FILE_MATCHER = re.compile(r"^###file_id(!photo)?###:(.*?)(?:\s|$)")
 STICKER_MATCHER = re.compile(r"^###sticker(!photo)?###:")
@@ -373,7 +373,7 @@ def list_notes(update, context):
             )
         except ValueError:
             update.effective_message.reply_text(
-                "There was a problem in showing notes list, maybe due to some invalid character in note names. Ask in @perrybot if you're unable to figure it out!"
+                "There was a problem in showing notes list, maybe due to some invalid character in note names. Ask in @kaalisupport if you're unable to figure it out!"
             )
 
 
